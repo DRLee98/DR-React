@@ -1,6 +1,7 @@
 {
   "name": "dr_webpack",
   "version": "0.0.0",
+  "description": "DRLee98 react-boilerplate",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack"
@@ -28,5 +29,11 @@
     "webpack": "^5.61.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
+  },
+  "author": "DRLee98",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DRLee98/DR-React"
   }
 }
