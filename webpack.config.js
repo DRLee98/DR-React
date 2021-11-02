@@ -6,21 +6,22 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DEV = 'development';
 const PROD = 'production';
 
-module.exports = (env, options) => {
-  const mode = options.mode || DEV;
+module.exports = () => {
+  const mode = process.env.NODE_ENV || DEV;
   const config = {
     entry: './src/index.tsx',
     resolve: {
+      modules: [path.resolve(__dirname, './'), 'node_modules'],
       extensions: ['.ts', '.tsx', '.js']
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.min.js'
+      filename: '[name].js'
     },
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx|ts)$/,
           loader: 'ts-loader'
         },
         {
@@ -34,9 +35,9 @@ module.exports = (env, options) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './public/index.html',
-        favicon: './public/favicon.ico',
-        filename: './index.html'
+        template: path.resolve(__dirname, 'public', 'index.html'),
+        favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
+        filename: 'index.html'
       })
     ],
     mode
