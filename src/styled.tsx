@@ -3,7 +3,9 @@ import { ThemeProvider } from 'styled-components';
 import { createGlobalStyle, DefaultTheme } from 'styled-components';
 import reset from 'styled-reset';
 
-const theme: DefaultTheme = {};
+const theme: DefaultTheme = {
+  fontColor: '#2e2e2e'
+};
 
 export const GlobalStyles = createGlobalStyle`
     ${reset}
