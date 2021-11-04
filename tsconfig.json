@@ -3,8 +3,8 @@
     "sourceMap": true, //sourcemap fiile(xxx.js.map)을 생성할 것인지 유무를 설정 디버깅이 필요한 개발환경에서는 true로 하고, 배포 사이즈를 줄여야 하는 배포환경에서는 false
     "noImplicitAny": false, //설정을 켜면 TypeScript는 any로 추론되는 것을 에러로 간주하게 된다.
     "module": "commonjs", // 프로그램에서 사용할 모듈 시스템
-    "target": "es6", //TypeScript가 컴파일 되는 결과물인 JavaScript 코드로 변환되는 버전을 결정
-    "lib": ["es2015", "es2017", "dom"],
+    "target": "es5", //TypeScript가 컴파일 되는 결과물인 JavaScript 코드로 변환되는 버전을 결정
+    "lib": ["dom", "dom.iterable", "esnext"],
     "removeComments": true, //컴파일 시킬 때, 주석(comments)을 모두 제거
     "allowSyntheticDefaultImports": true, // export default 를 export 한 값들을 가지는 객체로 설정
     "allowJs": true, //allowJS는 .ts, .tsx 파일에서 .js 파일을 import 할 수 있게 해준다.

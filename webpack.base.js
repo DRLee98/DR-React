@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -11,23 +11,28 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
       {
         test: /\.(tsx|ts)$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
+        loader: 'babel-loader',
         options: {
-          getCustomTransformers: () => ({
-            before: [
-              createStyledComponentsTransformer({
-                minify: true
-              })
-            ]
-          })
-        }
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { node: 'current' }, // 지원하길 원하는 환경
+                modules: false, //false로 설정 시 최신모듈 시스템이 그대로 유지되어서 트리 쉐이킹이 됨
+                useBuiltIns: 'usage'
+              }
+            ],
+            '@babel/preset-react', // 리액트를 쓴다면
+            '@babel/preset-typescript' // 타입스크립트를 쓴다면
+          ]
+        },
+        exclude: /node_modules/
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
@@ -35,18 +40,18 @@ module.exports = {
         options: {
           name: '[path][name].[ext]'
         }
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
       }
     ]
   },
   plugins: [
-    // 플러그인 인스턴스 생성
     new ImageMinimizerPlugin({
-      // 제외 설정
       exclude: /node_modules/,
-      // 최적화 옵션
       minimizerOptions: {
         // 사용자 정의 옵션을 사용해 무손실 최적화합니다.
-        // 보다 나은 결과를 위해 여러 옵션을 테스트 하여 사용해봅니다.
         plugins: [
           ['gifsicle', { interlaced: true }],
           ['jpegtran', { progressive: true }],
