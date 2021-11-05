@@ -5,7 +5,7 @@ const path = require('path');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = merge(base, {
@@ -16,11 +16,6 @@ module.exports = merge(base, {
     minimizer: [
       new CssMinimizerPlugin({
         parallel: true
-      }),
-      new UglifyjsWebpackPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
       }),
       new TerserPlugin({
         parallel: true,
